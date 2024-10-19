@@ -60,10 +60,10 @@ class TestBurger:
         mock_price = Mock()
         mock_price.get_price.return_value = 3847
         expected_receipt = (
-            '(==== Краторная булка N-200i ====)\n'
-            '= filling Мясо бессмертных моллюсков Protostomia =\n'
-            '(==== Краторная булка N-200i ====)\n'
-            '\nPrice: 3847'
+            f'(==== {self.mock_bun.get_name.return_value} ====)\n'
+            f'= {self.mock_ingredient_1.get_type.return_value.lower()} {self.mock_ingredient_1.get_name.return_value} =\n'
+            f'(==== {self.mock_bun.get_name.return_value} ====)\n'
+            f'\nPrice: {mock_price.get_price.return_value}'
         )
         assert expected_receipt == self.burger.get_receipt()
         self.burger.ingredients.clear()
