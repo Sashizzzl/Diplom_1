@@ -48,6 +48,7 @@ class TestBurger:
         actual_price = self.burger.get_price()
         assert  actual_price == expected_price
         self.burger.ingredients.clear()
+
     def test_get_receipt_gets_receipt_with_correct_price(self):
         self.burger.bun = self.mock_bun
         self.mock_bun.get_name.return_value = 'Краторная булка N-200i'
@@ -58,16 +59,14 @@ class TestBurger:
         self.mock_ingredient_1.get_price.return_value = 1337
         mock_price = Mock()
         mock_price.get_price.return_value = 3847
-        assert self.mock_bun.get_name() in self.burger.get_receipt()
-        assert f'Price: {mock_price.get_price()}' in self.burger.get_receipt()
-        assert self.mock_ingredient_1.get_type().lower() in self.burger.get_receipt()
-        assert self.mock_ingredient_1.get_name() in self.burger.get_receipt()
+        expected_receipt = (
+            '(==== Краторная булка N-200i ====)\n'
+            '= filling Мясо бессмертных моллюсков Protostomia =\n'
+            '(==== Краторная булка N-200i ====)\n'
+            '\nPrice: 3847'
+        )
+        assert expected_receipt == self.burger.get_receipt()
         self.burger.ingredients.clear()
-
-
-
-
-
 
 
 
